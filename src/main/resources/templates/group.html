@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Team</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/jquery-3.7.1.js}"></script>
+</head>
+<body>
+<header>
+    <h1>EURO CHAMPIONSHIP</h1>
+</header>
+<nav>
+    <div>
+        MENU:
+    </div>
+    <ul>
+        <li><a th:href="@{/team}">Teams Management</a></li>
+        <li><a th:href="@{/team/group}">Information Group</a></li>
+        <li><a href="#">Information Charts</a></li>
+        <li><a href="#">Who's Champion?</a></li>
+    </ul>
+</nav>
+<div class="content">
+
+    <table id="data-table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Team</th>
+            <th>Coach</th>
+            <th>National</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t, iterStat : ${teams}">
+            <td th:text = "${iterStat.count}"></td>
+            <td th:text = "${t.teamName}"></td>
+            <td th:text = "${t.coach}"></td>
+            <td th:text = "${t.nation}"></td>
+
+            <td>
+                <a type="button" th:href="@{/team/edit/{id}(id=${t.id})}">Edit</a> |
+                <a th:id-value="${t.id}" type="button" href="#" class="delete-team">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <div th:if="${group != null}">
+        <form th:action="@{/team/group}" method="post">
+            <input class="col-sm col-lg-4 border border-dark mr-4 rounded" type="submit"
+                   value="Make Group">
+        </form>
+
+        <div th:if="${divide != null}">
+            <h4>GROUPS: </h4>
+
+            <br>
+            <table>
+                <tr>
+                    <td>
+                        <strong>A:</strong>
+                        <ol>
+                            <li th:each="g : ${groupA}">
+                                <span th:text="${g.teamName}"></span>
+                            </li>
+                        </ol>
+                    </td>
+                    <td>
+                        <strong>B:</strong>
+                        <ol>
+                            <li th:each="g : ${groupB}">
+                                <span th:text="${g.teamName}"></span>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>C:</strong>
+                        <ol>
+                            <li th:each="g : ${groupC}">
+                                <span th:text="${g.teamName}"></span>
+                            </li>
+                        </ol>
+                    </td>
+                    <td>
+                        <strong>D:</strong>
+                        <ol>
+                            <li th:each="g : ${groupD}">
+                                <span th:text="${g.teamName}"></span>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+<footer>
+    <p>Base on Spring Framework</p>
+</footer>
+<script>
+    $(document).ready(
+        function () {
+            $('.delete-team').each(
+                function () {
+                    $(this).click(event => {
+                        event.preventDefault()
+                        let teamId = $(this).attr('id-value');
+                        console.log(teamId)
+                        if(confirm("Do you want to delete this team?") == true) {
+                            $.ajax({
+                                url: 'http://localhost:8080/team/delete/' + teamId,
+                                type: 'GET',
+                                success: function (data) {
+                                    window.location.href = "http://localhost:8080/team";
+                                },
+                                error: function (xhr, status, error) {
+
+                                }
+                            })
+                        }
+                    })
+                }
+            )
+
+
+
+
+        }
+    )
+    /*
+
+    I was having a similar problem and I found ignoring the cache or clearing browser cache to do the trick.
+    Ignoring the cache: hit ctrl + F5 to refresh page ignoring the cache.
+    Clearing the cache: hit shift + ctrl + delete will bring you to a screen where you can select the option to clear cached images and files.
+     */
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+server.port: 8080
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: update
+#    properties.hibernate.use_nationalized_character_data: true
+  #    properties.hibernate.dialect: org.hibernate.dialect.SQLServerDialect
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://DESKTOP-0A6IP7C\\SERVER_01:1433;databaseName=JSFW;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: 12345

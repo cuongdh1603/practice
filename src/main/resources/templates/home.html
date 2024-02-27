@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Example</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<header>
+    <h1>EURO CHAMPIONSHIP</h1>
+</header>
+<nav>
+    <div>
+        MENU:
+    </div>
+    <ul>
+        <li><a th:href="@{/team}">Teams Management</a></li>
+        <li><a th:href="@{/team/group}">Information Group</a></li>
+        <li><a href="#">Information Charts</a></li>
+        <li><a href="#">Who's Champion?</a></li>
+    </ul>
+</nav>
+<div class="content">
+    <h1>WELCOME TO EURO FOOTBALL CHAMPION</h1>
+</div>
+<footer>
+    <p>Base on Spring Framework</p>
+</footer>
+</body>
+</html>
